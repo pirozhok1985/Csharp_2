@@ -10,12 +10,16 @@ using System.Windows.Forms;
 
 namespace HomeWork_1
 {
-    public partial class Form1 : Form
+    public partial class Records : Form
     {
-        public Form1()
+        public Records()
         {
             InitializeComponent();
         }
 
+        private void bExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
