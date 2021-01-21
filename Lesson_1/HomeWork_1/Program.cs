@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace HomeWork_1
+namespace AsteroidGame
 {
     static class Program
     {

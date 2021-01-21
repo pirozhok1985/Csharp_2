@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace HomeWork_1
+namespace AsteroidGame
 {
     static class SplashScreen
     {
@@ -37,11 +37,11 @@ namespace HomeWork_1
             __arr = new myVisualObject[size];
             for(int i = 0; i < __arr.Length / 4; i++)
             {
-                __arr[i] = new myVisualObject
+                __arr[i] = new asteroid
                     (
                        new Point(600, i * 20),
                        new Point(15 - i, 20 - i),
-                       new Size(20, 20)
+                       new Size(40, 40)
                     );
             }
             for (int i = __arr.Length / 4, j = 1; i < __arr.Length / 2; i++, j++)
