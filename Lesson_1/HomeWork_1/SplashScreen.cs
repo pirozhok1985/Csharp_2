@@ -25,13 +25,11 @@ namespace AsteroidGame
         {
             Heigth = myGameForm.ClientSize.Height;
             Width = myGameForm.ClientSize.Width;
-            if ((Heigth | Width) > 1000 | (Heigth | Width) < 0) { throw new ArgumentOutOfRangeException(); }
+            if ((Heigth | Width) > 1000 | (Heigth | Width) < 0) { throw new SplashScreenException("Upps! Sorry, this is not allowed!", DateTime.Now); }
             Graphics myGraphics = myGameForm.CreateGraphics();
             __Context = BufferedGraphicsManager.Current;
             __Buffer = __Context.Allocate(myGraphics, new Rectangle(0,0,Width,Heigth - 60));
         }
-
-
 
         public static void Load() 
         {

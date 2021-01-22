@@ -10,12 +10,7 @@ namespace AsteroidGame
     class Bullet : DestructiveVisualObject
     {
         public Bullet(Point Position, Point Direction, Size bulletSize)
-            :base(Position, Direction, bulletSize)
-        {
-            _Position = Position;
-            _Direction = Direction;
-            _ObjSize = bulletSize;
-        }
+            :base(Position, Direction, bulletSize){}
 
         public override void Draw(Graphics g)
         {

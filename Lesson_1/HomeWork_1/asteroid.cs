@@ -11,12 +11,7 @@ namespace AsteroidGame
     {
         private Image img = Properties.Resources.asteroid;
         public asteroid(Point astPosition, Point astDirection, Size astSize)
-            :base(astPosition, astDirection, astSize)
-        {
-            _Position = astPosition;
-            _Direction = astDirection;
-            _ObjSize = astSize;
-        }
+            :base(astPosition, astDirection, astSize){}
 
         public override void Draw(Graphics g)
         {
