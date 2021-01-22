@@ -15,6 +15,8 @@ namespace AsteroidGame
         public static string AuthorName { get; private set; }
 
         private static myVisualObject[] __arr;
+        private static asteroid[] __arr_ast;
+        private static Bullet[] __arr_bull;
 
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
@@ -33,35 +35,51 @@ namespace AsteroidGame
         public static void Load() 
         {
             Random rand = new Random();
-            const int size = 60;
-            __arr = new myVisualObject[size];
-            for(int i = 0; i < __arr.Length / 4; i++)
+            List<myVisualObject> list = new List<myVisualObject>();
+            List<asteroid> list_ast = new List<asteroid>();
+            List<Bullet> list_bull = new List<Bullet>();
+
+            for (int i = 0; i < 7; i++)
             {
-                __arr[i] = new asteroid
+                list_ast.Add(new asteroid
                     (
                        new Point(600, i * 20),
                        new Point(15 - i, 20 - i),
                        new Size(40, 40)
-                    );
+                    ));
             }
-            for (int i = __arr.Length / 4, j = 1; i < __arr.Length / 2; i++, j++)
+            for (int i = 0; i < 10; i++)
             {
-                __arr[i] = new Star
+                list.Add(new Star
                     (
-                       new Point(rand.Next(0, 600), rand.Next(0, 800)),
+                       new Point(rand.Next(0, 600), rand.Next(0, 700)),
                        new Point(-(rand.Next(1, 4)), 0),
                        new Size(5, 5)
-                    );
+                    ));
             }
-            for (int i = __arr.Length / 2, j = 1; i < __arr.Length; i++, j++)
+            for (int i = 0; i < 20; i++)
             {
-                __arr[i] = new Star
+                list.Add(new Star
                     (
-                       new Point(rand.Next(0, 600), rand.Next(0, 800)),
+                       new Point(rand.Next(0, 600), rand.Next(0, 700)),
                        new Point(-(rand.Next(1, 2)), 0),
                        new Size(3, 3)
-                    );
+                    ));
             }
+            for (int i = 0; i < 2; i++)
+            {
+                list_bull.Add(new Bullet
+                    (
+                       new Point(600, rand.Next(0, 500)),
+                       new Point(-7, 0),
+                       new Size(10, 10)
+                    ));
+            }
+            list.AddRange(list_ast);
+            list.AddRange(list_bull);
+            __arr = list.ToArray();
+            __arr_ast = list_ast.ToArray();
+            __arr_bull = list_bull.ToArray();
         }
 
         public static void Draw()
@@ -81,6 +99,17 @@ namespace AsteroidGame
             foreach (var obj in __arr)
             {
                 obj.Update();
+            }
+            for (int i = 0; i < __arr_ast.Length; i++)
+            {
+                for (int j = 0; j < __arr_bull.Length; j++)
+                {
+                    if (__arr_ast[i].Collision(__arr_bull[j]))
+                    {
+                        __arr_ast[i].UpdateAfterCollision();
+                        __arr_bull[j].UpdateAfterCollision();
+                    }
+                }
             }
         }
     }

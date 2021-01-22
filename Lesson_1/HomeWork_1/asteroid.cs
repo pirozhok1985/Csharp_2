@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace AsteroidGame
 {
-    class asteroid : myVisualObject
+    class asteroid : DestructiveVisualObject
     {
         private Image img = Properties.Resources.asteroid;
         public asteroid(Point astPosition, Point astDirection, Size astSize)
@@ -37,6 +37,11 @@ namespace AsteroidGame
                 _Direction.X *= -1;
             if (_Position.Y >= SplashScreen.Heigth - _ObjSize.Height - 60)
                 _Direction.Y *= -1;
+        }
+
+        public override void UpdateAfterCollision()
+        {
+            _Position.X = 1;
         }
     }
 }
