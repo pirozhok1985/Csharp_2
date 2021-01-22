@@ -5,17 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace HomeWork_1
+namespace AsteroidGame
 {
     class Star : myVisualObject
     {
         public Star(Point Position, Point Direction, Size StarSize)
-            :base(Position, Direction, StarSize)
-        {
-            _Position = Position;
-            _Direction = Direction;
-            _ObjSize = StarSize;
-        }
+            :base(Position, Direction, StarSize){}
 
         public override void Draw(Graphics g)
         {

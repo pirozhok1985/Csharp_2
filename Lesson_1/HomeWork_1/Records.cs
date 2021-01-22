@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HomeWork_1
+namespace AsteroidGame
 {
     public partial class Records : Form
     {

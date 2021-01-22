@@ -1,5 +1,5 @@
 ﻿
-namespace HomeWork_1
+namespace AsteroidGame
 {
     partial class Records
     {
