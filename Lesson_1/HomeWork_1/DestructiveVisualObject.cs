@@ -2,7 +2,7 @@
 
 namespace AsteroidGame
 {
-    internal abstract class DestructiveVisualObject : myVisualObject, ICollision
+    internal abstract class DestructiveVisualObject : VisualObject, ICollision
     {
         public DestructiveVisualObject(Point objPosition, Point objDirection, Size objSize)
              : base(objPosition, objDirection, objSize){ }
@@ -12,6 +12,6 @@ namespace AsteroidGame
         {
             return obj.rect.IntersectsWith(this.rect);
         }
-        public abstract void UpdateAfterCollision();
+        //public abstract void UpdateAfterCollision();
     }
 }

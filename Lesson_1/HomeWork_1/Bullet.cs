@@ -21,13 +21,8 @@ namespace AsteroidGame
         public override void Update()
         {
             _Position.X += _Direction.X;
-            if (_Position.X < 0)
-                _Position.X = SplashScreen.Width + _ObjSize.Width;
-        }
-
-        public override void UpdateAfterCollision()
-        {
-            _Position.X = SplashScreen.Width + _ObjSize.Width;
+            if (_Position.X > Game.Width)
+                _Position.X = 0 + _ObjSize.Width;
         }
     }
 }

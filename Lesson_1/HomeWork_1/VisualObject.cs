@@ -7,13 +7,13 @@ using System.Drawing;
 
 namespace AsteroidGame
 {
-    abstract class myVisualObject
+    abstract class VisualObject
     {
         protected Point _Position;
         protected Point _Direction;
         protected Size _ObjSize;
 
-        public myVisualObject(Point pos, Point dir, Size oSize)
+        public VisualObject(Point pos, Point dir, Size oSize)
         {
             _Position = pos;
             _Direction = dir;

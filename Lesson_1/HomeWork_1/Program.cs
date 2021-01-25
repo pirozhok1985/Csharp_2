@@ -53,7 +53,7 @@ namespace AsteroidGame
             myGameForm.Controls.Add(RecordsButton);
             myGameForm.Show();
 
-            SplashScreen.Initialize(myGameForm);
+            Game.Initialize(myGameForm);
 
             Application.Run(myGameForm);
         }
@@ -78,12 +78,12 @@ namespace AsteroidGame
             Timer t = new Timer { Interval = 100 };
             t.Tick += onTimerTick;
             t.Start();
-            SplashScreen.Load();
+            Game.Load();
         }
         private static void onTimerTick(object sender, EventArgs e)
         {
-            SplashScreen.Update();
-            SplashScreen.Draw();
+            Game.Update();
+            Game.Draw();
         }
     }
 }

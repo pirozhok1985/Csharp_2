@@ -8,33 +8,34 @@ using System.Drawing;
 
 namespace AsteroidGame
 {
-    static class SplashScreen
+    static class Game
     {
-        public static int Heigth { get; private set; }
+        public static int Height { get; private set; }
         public static int Width { get; private set; }
         public static string AuthorName { get; private set; }
+        private static SpaceShip __ship = new SpaceShip(new Point(1, 200), new Point(0, 0), new Size(10, 10));
 
-        private static myVisualObject[] __arr;
-        private static asteroid[] __arr_ast;
-        private static Bullet[] __arr_bull;
+        private static VisualObject[] __arr;
+        //private static asteroid[] __arr_ast;
+        //private static Bullet[] __arr_bull;
 
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
 
         public static void Initialize(Form myGameForm)
         {
-            Heigth = myGameForm.ClientSize.Height;
+            Height = myGameForm.ClientSize.Height;
             Width = myGameForm.ClientSize.Width;
-            if ((Heigth | Width) > 1000 | (Heigth | Width) < 0) { throw new SplashScreenException("Upps! Sorry, this is not allowed!", DateTime.Now); }
+            if ((Height | Width) > 1000 | (Height | Width) < 0) { throw new SplashScreenException("Upps! Sorry, this is not allowed!", DateTime.Now); }
             Graphics myGraphics = myGameForm.CreateGraphics();
             __Context = BufferedGraphicsManager.Current;
-            __Buffer = __Context.Allocate(myGraphics, new Rectangle(0,0,Width,Heigth - 60));
+            __Buffer = __Context.Allocate(myGraphics, new Rectangle(0,0,Width,Height - 60));
         }
 
         public static void Load() 
         {
             Random rand = new Random();
-            List<myVisualObject> list = new List<myVisualObject>();
+            List<VisualObject> list = new List<VisualObject>();
             List<asteroid> list_ast = new List<asteroid>();
             List<Bullet> list_bull = new List<Bullet>();
 
@@ -69,16 +70,16 @@ namespace AsteroidGame
             {
                 list_bull.Add(new Bullet
                     (
-                       new Point(600, rand.Next(0, 500)),
-                       new Point(-7, 0),
+                       new Point(0, rand.Next(0, 500)),
+                       new Point(7, 0),
                        new Size(10, 10)
                     ));
             }
             list.AddRange(list_ast);
             list.AddRange(list_bull);
             __arr = list.ToArray();
-            __arr_ast = list_ast.ToArray();
-            __arr_bull = list_bull.ToArray();
+            //__arr_ast = list_ast.ToArray();
+            //__arr_bull = list_bull.ToArray();
         }
 
         public static void Draw()
@@ -88,28 +89,37 @@ namespace AsteroidGame
             g.Clear(Color.Black);
             foreach (var obj in __arr)
             {
-                obj.Draw(g);
+                obj?.Draw(g);
             }
+            __ship.Draw(g);
             g.DrawString(AuthorName, new Font("Arial", 12), new SolidBrush(Color.Gray), new PointF(630, 15));
             __Buffer.Render();
         }
         public static void Update()
         {
-            foreach (var obj in __arr)
+            //foreach (var obj in __arr)
+            //{
+            //    obj.Update();
+            //}
+            for (int i = 0; i < __arr.Length; i++)
             {
-                obj.Update();
-            }
-            for (int i = 0; i < __arr_ast.Length; i++)
-            {
-                for (int j = 0; j < __arr_bull.Length; j++)
+                if (__arr[i] is asteroid astObj)
                 {
-                    if (__arr_ast[i].Collision(__arr_bull[j]))
+                    for (int j = 0; j < __arr.Length; j++)
                     {
-                        __arr_ast[i].UpdateAfterCollision();
-                        __arr_bull[j].UpdateAfterCollision();
-                    }
+                        if (__arr[j] is Bullet bulObj)
+                        {
+                            if (astObj.Collision(bulObj))
+                            {
+                                __arr[i] = null;
+                                __arr[j] = null;
+                                break;
+                            }
+                        }
+                    }//внутренний цикл
                 }
-            }
+                __arr[i]?.Update();
+            }//внешний циклы
         }
     }
 }
