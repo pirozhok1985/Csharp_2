@@ -15,11 +15,12 @@ namespace AsteroidGame
         public static int Height { get; private set; }
         public static int Width { get; private set; }
         public static int __astCount = 10;
+        private static int __gameScore = new int();
         public static string __authorName { get; private set; }
         private static SpaceShip __ship = new SpaceShip(new Point(1, 200), new Point(5, 5), new Size(25, 15));
         private static Bullet __bullet;
         public static Timer t = new Timer { Interval = 100 };
-        private static int __count = 0;
+        private static int __count = new int();
         private static VisualObject[] __arr;
 
         private static BufferedGraphicsContext __Context;
@@ -142,10 +143,11 @@ namespace AsteroidGame
 
         private static void Finish()
         {
-            str_logger?.Invoke("Конец игры");
+            str_logger?.Invoke(string.Format("Конец игры\nКоличество заработанных очков:{0}",__gameScore));
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Blue);
             g.DrawString("You Win!!", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
+            g.DrawString(string.Format("Score is:{0}",__gameScore), new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 240));
             __Buffer.Render();
             Game.t.Stop();
         }
@@ -179,9 +181,10 @@ namespace AsteroidGame
                             __arr[i] = null;
                             __bullet = null;
                             __count++;
+                            __gameScore += 10;
                             break;
                         }
-                        if(__count == 10) Finish();
+                        if(__count == 9) Finish();
                     }
 
                     if (__ship is SpaceShip shipObj)
