@@ -12,12 +12,13 @@ namespace AsteroidGame
     {
         public static int Height { get; private set; }
         public static int Width { get; private set; }
-        public static string AuthorName { get; private set; }
-        private static SpaceShip __ship = new SpaceShip(new Point(1, 200), new Point(0, 0), new Size(10, 10));
-
+        public static int __astCount = 10;
+        public static string __authorName { get; private set; }
+        private static SpaceShip __ship = new SpaceShip(new Point(1, 200), new Point(5, 5), new Size(25, 15));
+        private static Bullet __bullet;
+        public static Timer t = new Timer { Interval = 100 };
+        private static int __count = 0;
         private static VisualObject[] __arr;
-        //private static asteroid[] __arr_ast;
-        //private static Bullet[] __arr_bull;
 
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
@@ -30,6 +31,27 @@ namespace AsteroidGame
             Graphics myGraphics = myGameForm.CreateGraphics();
             __Context = BufferedGraphicsManager.Current;
             __Buffer = __Context.Allocate(myGraphics, new Rectangle(0,0,Width,Height - 60));
+            SpaceShip.messageDie += GameOver;
+            t.Tick += onTimerTick;
+            t.Start();
+            Game.Load();
+            myGameForm.KeyDown += OnMyGameForm_KeyDown;
+        }
+
+        private static void onTimerTick(object sender, EventArgs e)
+        {
+            Game.Update();
+            Game.Draw();
+        }
+
+        private static void OnMyGameForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+                __bullet = new Bullet(new Point(__ship.rect.X + 5,__ship.rect.Y), new Point(8, 0), new Size(10,5));
+            if(e.KeyCode == Keys.Down)
+                __ship.Down();
+            if (e.KeyCode == Keys.Up)
+                __ship.Up();
         }
 
         public static void Load() 
@@ -37,14 +59,14 @@ namespace AsteroidGame
             Random rand = new Random();
             List<VisualObject> list = new List<VisualObject>();
             List<asteroid> list_ast = new List<asteroid>();
-            List<Bullet> list_bull = new List<Bullet>();
+            //List<Bullet> list_bull = new List<Bullet>();
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < __astCount; i++)
             {
                 list_ast.Add(new asteroid
                     (
-                       new Point(600, i * 20),
-                       new Point(15 - i, 20 - i),
+                       new Point(rand.Next(0, 500), rand.Next(0, 450)),
+                       new Point(-(rand.Next(3, 6)), 0),
                        new Size(40, 40)
                     ));
             }
@@ -66,60 +88,75 @@ namespace AsteroidGame
                        new Size(3, 3)
                     ));
             }
-            for (int i = 0; i < 2; i++)
-            {
-                list_bull.Add(new Bullet
-                    (
-                       new Point(0, rand.Next(0, 500)),
-                       new Point(7, 0),
-                       new Size(10, 10)
-                    ));
-            }
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    list_bull.Add(new Bullet
+            //        (
+            //           new Point(0, rand.Next(0, 500)),
+            //           new Point(7, 0),
+            //           new Size(10, 10)
+            //        ));
+            //}
             list.AddRange(list_ast);
-            list.AddRange(list_bull);
+            //list.AddRange(list_bull);
             __arr = list.ToArray();
-            //__arr_ast = list_ast.ToArray();
-            //__arr_bull = list_bull.ToArray();
+        }
+
+        public static void GameOver(object sender, EventArgs e)
+        {
+            Graphics g = __Buffer.Graphics;
+            g.Clear(Color.Red);
+            g.DrawString("Game Over", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(400, 300));
+            __Buffer.Render();
+            Game.t.Stop();
         }
 
         public static void Draw()
         {
-            AuthorName = "Анисимов Евгений";
+            __authorName = "Анисимов Евгений";
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Black);
             foreach (var obj in __arr)
             {
                 obj?.Draw(g);
             }
-            __ship.Draw(g);
-            g.DrawString(AuthorName, new Font("Arial", 12), new SolidBrush(Color.Gray), new PointF(630, 15));
+            __ship?.Draw(g);
+            __bullet?.Draw(g);
+            g.DrawString(__authorName, new Font("Arial", 12), new SolidBrush(Color.Gray), new PointF(630, 15));
+            if(t.Enabled)
             __Buffer.Render();
         }
         public static void Update()
         {
-            //foreach (var obj in __arr)
-            //{
-            //    obj.Update();
-            //}
+            __bullet?.Update();
             for (int i = 0; i < __arr.Length; i++)
             {
                 if (__arr[i] is asteroid astObj)
                 {
-                    for (int j = 0; j < __arr.Length; j++)
+                    if (__bullet is Bullet bulObj)
                     {
-                        if (__arr[j] is Bullet bulObj)
+                        if (astObj.Collision(bulObj))
                         {
-                            if (astObj.Collision(bulObj))
-                            {
-                                __arr[i] = null;
-                                __arr[j] = null;
-                                break;
-                            }
+                            __arr[i] = null;
+                            __bullet = null;
+                            __count++;
+                            break;
                         }
-                    }//внутренний цикл
+                    }
+
+                    if (__ship is SpaceShip shipObj)
+                    {
+                        if (astObj.Collision(shipObj))
+                        {
+                            shipObj.EnergyLow(50);
+                            __arr[i] = null;
+                            if (shipObj.Energy <= 0) shipObj.Die();
+                            break;
+                        }
+                    }
                 }
                 __arr[i]?.Update();
-            }//внешний циклы
+            }
         }
     }
 }

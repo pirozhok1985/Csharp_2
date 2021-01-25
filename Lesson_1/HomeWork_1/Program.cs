@@ -22,68 +22,68 @@ namespace AsteroidGame
             myGameForm.Height = 600;
             myGameForm.Width = 800;
 
-            Button StartButton = new Button();
-            StartButton.Size = new Size(80, 40);
-            StartButton.Location = new Point(20, 510);
-            StartButton.Text = "Начало Игры";
-            StartButton.Click += StartButton_Click;
+            //Button StartButton = new Button();
+            //StartButton.Size = new Size(80, 40);
+            //StartButton.Location = new Point(20, 510);
+            //StartButton.Text = "Начало Игры";
+            //StartButton.Click += StartButton_Click;
 
-            Button ExitButton = new Button();
-            ExitButton.Size = new Size(80, 40);
-            ExitButton.Location = new Point(680, 510);
-            ExitButton.Text = "Выход";
-            ExitButton.Click += ExitButton_Click;
+            //Button ExitButton = new Button();
+            //ExitButton.Size = new Size(80, 40);
+            //ExitButton.Location = new Point(680, 510);
+            //ExitButton.Text = "Выход";
+            //ExitButton.Click += ExitButton_Click;
 
-            Button RecordsButton = new Button();
-            RecordsButton.Size = new Size(80, 40);
-            RecordsButton.Location = new Point(580, 510);
-            RecordsButton.Text = "Рекорды";
-            RecordsButton.Click += RecordsButton_Click;
+            //Button RecordsButton = new Button();
+            //RecordsButton.Size = new Size(80, 40);
+            //RecordsButton.Location = new Point(580, 510);
+            //RecordsButton.Text = "Рекорды";
+            //RecordsButton.Click += RecordsButton_Click;
 
-            //Label AuthorName = new Label();
-            //AuthorName.Text = "Анисимов Евгений";
-            //AuthorName.Font = new Font("Arial", 40);
-            //AuthorName.BackColor = Color.Transparent;
-            //AuthorName.ForeColor = Color.Aqua;
-            //AuthorName.Size = new Size(500, 60);
-            //AuthorName.Location = new Point(150, 250);
+            //Label __authorName = new Label();
+            //__authorName.Text = "Анисимов Евгений";
+            //__authorName.Font = new Font("Arial", 40);
+            //__authorName.BackColor = Color.Transparent;
+            //__authorName.ForeColor = Color.Aqua;
+            //__authorName.Size = new Size(500, 60);
+            //__authorName.Location = new Point(150, 250);
 
-            myGameForm.Controls.Add(StartButton);
-            myGameForm.Controls.Add(ExitButton);
-            myGameForm.Controls.Add(RecordsButton);
-            myGameForm.Show();
+            //myGameForm.Controls.Add(StartButton);
+            //myGameForm.Controls.Add(ExitButton);
+            //myGameForm.Controls.Add(RecordsButton);
+            //myGameForm.Show();
 
             Game.Initialize(myGameForm);
 
             Application.Run(myGameForm);
         }
 
-        private static void RecordsButton_Click(object sender, EventArgs e)
-        {
-            Button ClickedRecordsButton = (Button)sender;
-            ClickedRecordsButton.Enabled = false;
-            Records myRecords = new Records();
-            myRecords.Show();
-        }
+        //private static void RecordsButton_Click(object sender, EventArgs e)
+        //{
+        //    Button ClickedRecordsButton = (Button)sender;
+        //    ClickedRecordsButton.Enabled = false;
+        //    Records myRecords = new Records();
+        //    myRecords.Show();
+        //}
 
-        private static void ExitButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        //private static void ExitButton_Click(object sender, EventArgs e)
+        //{
+        //    Application.Exit();
+        //}
 
-        private static void StartButton_Click(object sender, EventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-            clickedButton.Enabled = false;
-            Timer t = new Timer { Interval = 100 };
-            t.Tick += onTimerTick;
-            t.Start();
-            Game.Load();
-        }
-        private static void onTimerTick(object sender, EventArgs e)
-        {
-            Game.Update();
-            Game.Draw();
-        }
+        //private static void StartButton_Click(object sender, EventArgs e)
+        //{
+        //    Button clickedButton = (Button)sender;
+        //    clickedButton.Enabled = false;
+        //    Timer t = new Timer { Interval = 100 };
+        //    t.Tick += onTimerTick;
+        //    t.Start();
+        //    Game.Load();
+        //}
+        //private static void onTimerTick(object sender, EventArgs e)
+        //{
+        //    Game.Update();
+        //    Game.Draw();
+        //}
     }
 }

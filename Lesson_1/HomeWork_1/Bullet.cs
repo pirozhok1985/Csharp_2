@@ -21,8 +21,8 @@ namespace AsteroidGame
         public override void Update()
         {
             _Position.X += _Direction.X;
-            if (_Position.X > Game.Width)
-                _Position.X = 0 + _ObjSize.Width;
+            //if (_Position.X > Game.Width)
+            //    _Position.X = 0 + _ObjSize.Width;
         }
     }
 }

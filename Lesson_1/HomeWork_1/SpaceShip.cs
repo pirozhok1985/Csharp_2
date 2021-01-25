@@ -12,6 +12,8 @@ namespace AsteroidGame
         private int _energy = 100;
         public int Energy => _energy;
 
+        public static event EventHandler messageDie;
+
         public void EnergyLow(int n)
         {
             _energy -= n;
@@ -30,14 +32,15 @@ namespace AsteroidGame
         }
         public void Up()
         {
-            if (_Position.Y > 0) _Position.Y = _Position.Y - _Position.Y;
+            if (_Position.Y > 0) _Position.Y -= _Direction.Y;
         }
         public void Down()
         {
-            if (_Position.Y < Game.Height) _Position.Y = _Position.Y + _Direction.Y;
+            if (_Position.Y < Game.Height) _Position.Y +=_Direction.Y;
         }
         public void Die()
         {
+           messageDie?.Invoke(messageDie, EventArgs.Empty);
         }
     }
 }
