@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace AsteroidGame
@@ -23,9 +24,10 @@ namespace AsteroidGame
 
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
-        public delegate void Logger(string message);
-        public static event Logger logger;
-        
+        public delegate void Logger<T>(T message);
+        public static event Logger<string> str_logger;
+
+
 
         public static void Initialize(Form myGameForm)
         {
@@ -40,10 +42,17 @@ namespace AsteroidGame
             t.Start();
             Game.Load();
             myGameForm.KeyDown += OnMyGameForm_KeyDown;
-            logger += Game_logger;
+            str_logger += on_str_logger;
+            str_logger += on_file_logger;
         }
 
-        private static void Game_logger(string message)
+        private static void on_file_logger(string message)
+        {
+            using(var fc = File.CreateText("log.txt"))
+                fc.WriteLine(message);
+        }
+
+        private static void on_str_logger(string message)
         {
             AllocConsole();
             Console.WriteLine(message);
@@ -123,7 +132,7 @@ namespace AsteroidGame
 
         public static void GameOver(object sender, EventArgs e)
         {
-            logger?.Invoke("Вы проиграли!!!");
+            str_logger?.Invoke("Вы проиграли!!!");
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Red);
             g.DrawString("Game Over", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
@@ -133,7 +142,7 @@ namespace AsteroidGame
 
         private static void Finish()
         {
-            logger?.Invoke("Конец игры");
+            str_logger?.Invoke("Конец игры");
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Blue);
             g.DrawString("You Win!!", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
