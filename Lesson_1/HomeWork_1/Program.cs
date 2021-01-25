@@ -58,6 +58,7 @@ namespace AsteroidGame
             Application.Run(myGameForm);
         }
 
+
         //private static void RecordsButton_Click(object sender, EventArgs e)
         //{
         //    Button ClickedRecordsButton = (Button)sender;

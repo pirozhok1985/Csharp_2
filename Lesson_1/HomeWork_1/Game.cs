@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace AsteroidGame
 {
@@ -22,6 +23,9 @@ namespace AsteroidGame
 
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
+        public delegate void Logger(string message);
+        public static event Logger logger;
+        
 
         public static void Initialize(Form myGameForm)
         {
@@ -36,6 +40,21 @@ namespace AsteroidGame
             t.Start();
             Game.Load();
             myGameForm.KeyDown += OnMyGameForm_KeyDown;
+            logger += Game_logger;
+        }
+
+        private static void Game_logger(string message)
+        {
+            AllocConsole();
+            Console.WriteLine(message);
+            [DllImport("kernel32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool AllocConsole();
+        }
+
+        private static void Game_Logger()
+        {
+           
         }
 
         private static void onTimerTick(object sender, EventArgs e)
@@ -104,9 +123,20 @@ namespace AsteroidGame
 
         public static void GameOver(object sender, EventArgs e)
         {
+            logger?.Invoke("Вы проиграли!!!");
             Graphics g = __Buffer.Graphics;
             g.Clear(Color.Red);
-            g.DrawString("Game Over", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(400, 300));
+            g.DrawString("Game Over", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
+            __Buffer.Render();
+            Game.t.Stop();
+        }
+
+        private static void Finish()
+        {
+            logger?.Invoke("Конец игры");
+            Graphics g = __Buffer.Graphics;
+            g.Clear(Color.Blue);
+            g.DrawString("You Win!!", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
             __Buffer.Render();
             Game.t.Stop();
         }
@@ -135,13 +165,14 @@ namespace AsteroidGame
                 {
                     if (__bullet is Bullet bulObj)
                     {
-                        if (astObj.Collision(bulObj))
+                        if (astObj.Collision(bulObj) && __count < 10)
                         {
                             __arr[i] = null;
                             __bullet = null;
                             __count++;
                             break;
                         }
+                        if(__count == 10) Finish();
                     }
 
                     if (__ship is SpaceShip shipObj)
