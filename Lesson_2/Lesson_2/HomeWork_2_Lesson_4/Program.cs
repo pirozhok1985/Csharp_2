@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HomeWork_2_Lesson_4
 {
@@ -16,7 +17,6 @@ namespace HomeWork_2_Lesson_4
                 list.Add(rand.Next(0,10));
             }
 
-            list.Sort();
             for (var i = 0; i < list.Capacity; i++)
             {
                 if (Pairs.ContainsKey(list[i]))
@@ -31,7 +31,7 @@ namespace HomeWork_2_Lesson_4
 
             foreach (var item in list)
             {
-                Console.WriteLine(item);
+                Console.Write(item);
             }
 
             Console.WriteLine();
