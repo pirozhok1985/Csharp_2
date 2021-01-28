@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork_2", "HomeWork_2\HomeWork_2.csproj", "{DB5FE068-BA0B-4652-ABA5-282ED8795D0A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsteroidGame", "..\..\Lesson_1\HomeWork_1\AsteroidGame.csproj", "{555C3D71-8FD6-4C3A-B4C4-7D3932C3D92F}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DB5FE068-BA0B-4652-ABA5-282ED8795D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB5FE068-BA0B-4652-ABA5-282ED8795D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB5FE068-BA0B-4652-ABA5-282ED8795D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB5FE068-BA0B-4652-ABA5-282ED8795D0A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{555C3D71-8FD6-4C3A-B4C4-7D3932C3D92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{555C3D71-8FD6-4C3A-B4C4-7D3932C3D92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{555C3D71-8FD6-4C3A-B4C4-7D3932C3D92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
