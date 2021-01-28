@@ -9,6 +9,7 @@ namespace HomeWork_2_Lesson_4
         static void Main(string[] args)
         {
             Dictionary<int, int> Pairs = new Dictionary<int, int>();
+            Dictionary<int, int> Pairs1 = new Dictionary<int, int>();
             Random rand = new Random();
             int count = 1;
             List<int> list = new List<int>(50);
@@ -31,6 +32,12 @@ namespace HomeWork_2_Lesson_4
 
             foreach (var item in list)
             {
+                var linqPairs = list.FindAll(i => i == item);
+                Pairs1.TryAdd(item, linqPairs.Count);
+            }
+
+            foreach (var item in list)
+            {
                 Console.Write(item);
             }
 
@@ -39,6 +46,14 @@ namespace HomeWork_2_Lesson_4
             foreach (var element in Pairs)
             {
                 Console.WriteLine("{0}:{1}",element.Key, element.Value);
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine();
+            foreach (var element in Pairs)
+            {
+                Console.WriteLine("{0}:{1}", element.Key, element.Value);
             }
         }
     }
