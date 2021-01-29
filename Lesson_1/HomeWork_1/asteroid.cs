@@ -33,5 +33,13 @@ namespace AsteroidGame
             //if (_Position.Y >= Game.Height - _ObjSize.Height - 60)
             //    _Direction.Y *= -1;
         }
+
+        public override void Reset()
+        {
+            base.Reset();
+            Random r = new Random();
+            _Position.X = 650 + r.Next(0, Game.__astCount) * 40;
+            _Position.Y = r.Next(0, Game.Height - 40);
+        }
     }
 }
