@@ -51,7 +51,7 @@ namespace HomeWork_2_Lesson_4
             Console.WriteLine();
 
             Console.WriteLine();
-            foreach (var element in Pairs)
+            foreach (var element in Pairs1)
             {
                 Console.WriteLine("{0}:{1}", element.Key, element.Value);
             }

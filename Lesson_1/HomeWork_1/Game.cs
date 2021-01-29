@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace AsteroidGame
@@ -16,6 +17,7 @@ namespace AsteroidGame
         public static int Height { get; private set; }
         public static int Width { get; private set; }
         public static int __astCount = 10;
+        public static int __astSpeed = 3;
         private static int __gameScore = new int();
         public static string __authorName { get; private set; }
         private static SpaceShip __ship = new SpaceShip(new Point(1, 200), new Point(5, 5), new Size(25, 15));
@@ -50,42 +52,6 @@ namespace AsteroidGame
             str_logger += on_file_logger;
         }
 
-        private static void on_file_logger(string message)
-        {
-            using(var fc = File.CreateText("log.txt"))
-                fc.WriteLine(message);
-        }
-
-        private static void on_str_logger(string message)
-        {
-            AllocConsole();
-            Console.WriteLine(message);
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            static extern bool AllocConsole();
-        }
-
-        private static void Game_Logger()
-        {
-           
-        }
-
-        private static void onTimerTick(object sender, EventArgs e)
-        {
-            Game.Update();
-            Game.Draw();
-        }
-
-        private static void OnMyGameForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.ControlKey)
-                __bullet = new Bullet(new Point(__ship.rect.X + 5,__ship.rect.Y), new Point(13, 0), new Size(10,5));
-            if(e.KeyCode == Keys.Down)
-                __ship.Down();
-            if (e.KeyCode == Keys.Up)
-                __ship.Up();
-        }
-
         public static void Load() 
         {
             List<VisualObject> list = new List<VisualObject>();
@@ -94,8 +60,8 @@ namespace AsteroidGame
             {
                 __astList.Add(new asteroid
                     (
-                       new Point(__rand.Next(650, 730), __rand.Next(-10, 450)),
-                       new Point(-(__rand.Next(3, 6)), 0),
+                       new Point(650 + i*40, __rand.Next(0, Height - 40)),
+                       new Point(-__astSpeed, 0),
                        new Size(40, 40)
                     ));
             }
@@ -103,7 +69,7 @@ namespace AsteroidGame
             {
                 list.Add(new Star
                     (
-                       new Point(__rand.Next(0, 600), __rand.Next(0, 700)),
+                       new Point(__rand.Next(0, Width), __rand.Next(0, Height)),
                        new Point(-(__rand.Next(1, 4)), 0),
                        new Size(5, 5)
                     ));
@@ -112,7 +78,7 @@ namespace AsteroidGame
             {
                 list.Add(new Star
                     (
-                       new Point(__rand.Next(0, 600), __rand.Next(0, 700)),
+                       new Point(__rand.Next(0, Width), __rand.Next(0, Height)),
                        new Point(-(__rand.Next(1, 2)), 0),
                        new Size(3, 3)
                     ));
@@ -120,25 +86,17 @@ namespace AsteroidGame
             __arr = list.ToArray();
         }
 
-        public static void GameOver(object sender, EventArgs e)
-        {
-            str_logger?.Invoke("Вы проиграли!!!");
-            Graphics g = __Buffer.Graphics;
-            g.Clear(Color.Red);
-            g.DrawString("Game Over", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
-            __Buffer.Render();
-            Game.t.Stop();
-        }
-
         private static void asteroidLoad()
         {
+            __count = 0;
             __astCount += 1;
+            __astSpeed += 1;
             for (int i = 0; i < __astCount; i++)
             {
                 __astList.Add(new asteroid
                 (
-                    new Point(__rand.Next(650, 730), __rand.Next(-10, 450)),
-                    new Point(-(__rand.Next(3, 6)), 0),
+                    new Point(650 + i * 40, __rand.Next(0, Height - 40)),
+                    new Point(-__astSpeed, 0),
                     new Size(40, 40)
                 ));
             }
@@ -194,6 +152,45 @@ namespace AsteroidGame
                 }
                 __astList[i]?.Update();
             }
+        }
+        private static void on_file_logger(string message)
+        {
+            using (var fc = File.CreateText("log.txt"))
+                fc.WriteLine(message);
+        }
+
+        private static void on_str_logger(string message)
+        {
+            AllocConsole();
+            Console.WriteLine(message);
+            [DllImport("kernel32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool AllocConsole();
+        }
+
+        private static void onTimerTick(object sender, EventArgs e)
+        {
+            Game.Update();
+            Game.Draw();
+        }
+
+        private static void OnMyGameForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+                __bullet = new Bullet(new Point(__ship.rect.X + 5, __ship.rect.Y), new Point(13, 0), new Size(10, 5));
+            if (e.KeyCode == Keys.Down)
+                __ship.Down();
+            if (e.KeyCode == Keys.Up)
+                __ship.Up();
+        }
+        public static void GameOver(object sender, EventArgs e)
+        {
+            str_logger?.Invoke("Вы проиграли!!!");
+            Graphics g = __Buffer.Graphics;
+            g.Clear(Color.Red);
+            g.DrawString("Game Over", new Font("Arial", 30), new SolidBrush(Color.Black), new PointF(300, 200));
+            __Buffer.Render();
+            Game.t.Stop();
         }
     }
 }
