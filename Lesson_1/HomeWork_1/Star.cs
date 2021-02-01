@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace AsteroidGame
 {
-    class Star : myVisualObject
+    class Star : VisualObject
     {
         public Star(Point Position, Point Direction, Size StarSize)
             :base(Position, Direction, StarSize){}
@@ -22,7 +22,7 @@ namespace AsteroidGame
         {
             _Position.X += _Direction.X;
             if (_Position.X < 0)
-                _Position.X = SplashScreen.Width + _ObjSize.Width;
+                _Position.X = Game.Width + _ObjSize.Width;
         }
     }
 }

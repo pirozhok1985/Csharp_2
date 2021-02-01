@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace AsteroidGame
 {
-    abstract class myVisualObject
+    abstract class VisualObject
     {
         protected Point _Position;
         protected Point _Direction;
         protected Size _ObjSize;
 
-        public myVisualObject(Point pos, Point dir, Size oSize)
+        public VisualObject(Point pos, Point dir, Size oSize)
         {
             _Position = pos;
             _Direction = dir;
