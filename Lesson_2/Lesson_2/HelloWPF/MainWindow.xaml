@@ -6,6 +6,22 @@
         xmlns:local="clr-namespace:HelloWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid Name="MainGrid"/>
+    <Grid Name="MainGrid" Margin="5,5,5,5">
+        <ComboBox Name="Employees"
+                  HorizontalAlignment="Left" 
+                  Margin="74,126,0,0"
+                  VerticalAlignment="Top"
+                  Width="150"
+                  SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox Name="Departments"
+                  HorizontalAlignment="Left"
+                  Margin="330,126,0,0"
+                  VerticalAlignment="Top"
+                  Width="150"/>
+        <TextBox HorizontalAlignment="Left" Margin="74,103,0,0" Text="Employees" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <TextBox HorizontalAlignment="Left" Margin="330,103,0,0" Text="Departments" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="bOk" Content="OK" HorizontalAlignment="Left" Margin="128,268,0,0" VerticalAlignment="Top" Width="70" Height="30"/>
+        <Button x:Name="bCancel" Content="CANCEL" HorizontalAlignment="Left" Margin="370,268,0,0" VerticalAlignment="Top" Height="30" Width="70" Click="bCancel_Click"/>
+    </Grid>
 
 </Window>

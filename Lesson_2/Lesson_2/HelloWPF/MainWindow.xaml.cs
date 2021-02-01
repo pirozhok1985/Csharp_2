@@ -23,14 +23,28 @@ namespace HelloWPF
         public MainWindow()
         {
             InitializeComponent();
+            Employees.ItemsSource = new List<Employee>()
+            {
+                new Employee("Petya", "Vasechkin", 1),
+                new Employee("Vasya", "Petechkin", 2),
+                new Employee("Stepa", "Ivanishin", 3)
+            };
+            Departments.ItemsSource = new List<Department>()
+            {
+                new Department("IT Department"),
+                new Department("Marketing Department"),
+                new Department("HR Department")
+            };
         }
 
-        private Department itDep = new Department("IT Department");
-        private Department mDep = new Department("Marketing Department");
-        private Department hrDep = new Department("HR Department");
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
 
-        private Employee emp1 = new Employee("Petya", "Vasechkin", 1);
-        private Employee emp2 = new Employee("Vasya", "Petechkin", 2);
-        private Employee emp3 = new Employee("Stepa", "Ivanishin", 3);
+        private void bCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

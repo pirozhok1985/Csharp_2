@@ -40,5 +40,10 @@ namespace HelloWPF
         {
             return Dep.GetEnumerator();
         }
+
+        public override string ToString()
+        {
+            return string.Format($"{DepName}");
+        }
     }
 }
