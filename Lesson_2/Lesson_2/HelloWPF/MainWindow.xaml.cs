@@ -25,5 +25,12 @@ namespace HelloWPF
             InitializeComponent();
         }
 
+        private Department itDep = new Department("IT Department");
+        private Department mDep = new Department("Marketing Department");
+        private Department hrDep = new Department("HR Department");
+
+        private Employee emp1 = new Employee("Petya", "Vasechkin", 1);
+        private Employee emp2 = new Employee("Vasya", "Petechkin", 2);
+        private Employee emp3 = new Employee("Stepa", "Ivanishin", 3);
     }
 }
