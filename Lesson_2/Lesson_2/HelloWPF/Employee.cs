@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HelloWPF
 {
-    class Employee
+   public class Employee
     {
         public string Name { get;}
         public string SName { get;}

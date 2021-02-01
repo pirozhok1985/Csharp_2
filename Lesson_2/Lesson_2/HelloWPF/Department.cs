@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HelloWPF
 {
-    class Department : IEnumerable
+    public class Department : IEnumerable
     {
         public List<Employee> Dep { get; set; }
         public string DepName { get; set; }
