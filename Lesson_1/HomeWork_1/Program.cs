@@ -19,8 +19,8 @@ namespace AsteroidGame
             Application.EnableVisualStyles();
 
             Form myGameForm = new Form();
-            myGameForm.Height = 600;
-            myGameForm.Width = 800;
+            myGameForm.Height = 800;
+            myGameForm.Width = 150;
 
             //Button StartButton = new Button();
             //StartButton.Size = new Size(80, 40);
@@ -40,13 +40,13 @@ namespace AsteroidGame
             //RecordsButton.Text = "Рекорды";
             //RecordsButton.Click += RecordsButton_Click;
 
-            //Label __authorName = new Label();
-            //__authorName.Text = "Анисимов Евгений";
-            //__authorName.Font = new Font("Arial", 40);
-            //__authorName.BackColor = Color.Transparent;
-            //__authorName.ForeColor = Color.Aqua;
-            //__authorName.Size = new Size(500, 60);
-            //__authorName.Location = new Point(150, 250);
+            //Label __AuthorName = new Label();
+            //__AuthorName.Text = "Анисимов Евгений";
+            //__AuthorName.Font = new Font("Arial", 40);
+            //__AuthorName.BackColor = Color.Transparent;
+            //__AuthorName.ForeColor = Color.Aqua;
+            //__AuthorName.Size = new Size(500, 60);
+            //__AuthorName.Location = new Point(150, 250);
 
             //myGameForm.Controls.Add(StartButton);
             //myGameForm.Controls.Add(ExitButton);
@@ -76,9 +76,9 @@ namespace AsteroidGame
         //{
         //    Button clickedButton = (Button)sender;
         //    clickedButton.Enabled = false;
-        //    Timer t = new Timer { Interval = 100 };
-        //    t.Tick += onTimerTick;
-        //    t.Start();
+        //    Timer __T = new Timer { Interval = 100 };
+        //    __T.Tick += onTimerTick;
+        //    __T.Start();
         //    Game.Load();
         //}
         //private static void onTimerTick(object sender, EventArgs e)

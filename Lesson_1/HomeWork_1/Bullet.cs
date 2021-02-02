@@ -28,8 +28,8 @@ namespace AsteroidGame
         public override void Reset()
         {
            base.Reset();
-            _Position.X = Game.__ship.rect.X + 5;
-            _Position.Y = Game.__ship.rect.Y;
+            _Position.X = Game.__Ship.rect.X + 5;
+            _Position.Y = Game.__Ship.rect.Y;
         }
     }
 }

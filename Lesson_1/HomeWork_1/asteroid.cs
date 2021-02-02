@@ -38,7 +38,7 @@ namespace AsteroidGame
         {
             base.Reset();
             Random r = new Random();
-            _Position.X = 650 + r.Next(0, Game.__astCount) * 40;
+            _Position.X = 650 + r.Next(0, Game.__AstCount) * 40;
             _Position.Y = r.Next(0, Game.Height - 40);
         }
     }
