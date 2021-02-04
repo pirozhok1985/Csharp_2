@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using HelloWPF.Model;
 
 namespace HelloWPF.ViewModel
 {
     class MainWindowViewModel
     {
-        public List<Department> _Dep { get; set;}
+        public ObservableCollection<Department> _Dep { get; set;}
 
         public MainWindowViewModel()
         {
             var i = 1;
-            _Dep = Enumerable.Range(1, 5).Select(d => new Department
+            var Dep = Enumerable.Range(1, 5).Select(d => new Department
             {
                 DepName = $"Department - {d}",
                 Human = new(Enumerable.Range(1,5).Select(h =>new Employee
@@ -24,6 +25,7 @@ namespace HelloWPF.ViewModel
                     Id = i++
                 }))
             }).ToList();
+            _Dep = new(Dep);
         }
     }
 }

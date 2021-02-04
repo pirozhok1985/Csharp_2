@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HelloWPF.Model;
 using HelloWPF.ViewModel;
@@ -18,29 +17,28 @@ using HelloWPF.ViewModel;
 namespace HelloWPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddDepartment.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddDepartment : Window
     {
-        public MainWindow()
+        public AddDepartment()
         {
             InitializeComponent();
         }
 
-        private void BAdd_OnClick(object sender, RoutedEventArgs e)
+        private void BCancel_OnClick(object sender, RoutedEventArgs e)
         {
-            AddDepartment add = new AddDepartment();
-             add.Show();
+            this.Close();
         }
 
-        private void bRemove_Click(object sender, RoutedEventArgs e)
+        private void bOk_Click(object sender, RoutedEventArgs e)
         {
             var dataModel = (MainWindowViewModel)DataContext;
-            var Dep = (Department)Departments.SelectedItem;
-            
-            if(Dep is null) return;
-
-            dataModel._Dep.Remove(Dep);
+            dataModel._Dep.Add(new Department
+            {
+                DepName = Dep.ToString(),
+                //Human = 
+            });
         }
     }
 }

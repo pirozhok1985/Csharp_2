@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HelloWPF.ViewModel"
         xmlns:local="clr-namespace:HelloWPF"
-        Title="MainWindow" Height="350" Width="600">
+        Title="MainWindow" Height="370" Width="600">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -15,7 +15,13 @@
             <ColumnDefinition Width="211*"/>
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="Departments" Margin="5">
-            <ListView Name="Departments" ItemsSource="{Binding _Dep}" DisplayMemberPath="DepName"/>
+            <StackPanel>
+                <ListView Name="Departments" Margin="5" ItemsSource="{Binding _Dep}" DisplayMemberPath="DepName" Height="246"/>
+               <StackPanel Orientation="Horizontal" Margin="5" Height="35">
+                    <Button Name="bAdd" Content="Add"  Margin="7" Width="40" Click="BAdd_OnClick"></Button>
+                   <Button Name="bRemove" Content="Remove" Margin="7" Width="50" Click="bRemove_Click"></Button>
+               </StackPanel>
+            </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="Employees" Margin="5">
             <Grid>
@@ -37,6 +43,10 @@
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <TextBlock Text="Employee ID: "/>
                             <TextBox Text="{Binding Id}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Department: "/>
+                            <TextBox Text="{Binding SelectedItem.DepName, ElementName=Departments}"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
