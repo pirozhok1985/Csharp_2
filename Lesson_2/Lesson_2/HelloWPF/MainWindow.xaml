@@ -3,19 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HelloWPF.ViewModel"
         xmlns:local="clr-namespace:HelloWPF"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="270" Width="425">
-    <Grid Name="MainGrid" Margin="5,5,5,5">
-        <ComboBox Name="Employees"
-                  HorizontalAlignment="Left" 
-                  Margin="73,73,0,0"
-                  VerticalAlignment="Top"
-                  Width="258"
-                  SelectionChanged="Employees_SelectionChanged" Height="34"/>
-        <Button x:Name="bOk" Content="OK" HorizontalAlignment="Left" Margin="73,194,0,0" VerticalAlignment="Top" Width="70" Height="30" Click="bOk_Click"/>
-        <Button x:Name="bCancel" Content="CANCEL" HorizontalAlignment="Left" Margin="261,194,0,0" VerticalAlignment="Top" Height="30" Width="70" Click="bCancel_Click"/>
-        <Button x:Name="bAdd" Content="ADD" HorizontalAlignment="Left" Margin="168,194,0,0" VerticalAlignment="Top" Height="30" Width="70" Click="bAdd_Click"/>
+        Title="MainWindow" Height="350" Width="600">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="211*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Header="Departments" Margin="5">
+            <ListView Name="Departments" ItemsSource="{Binding _Dep}" DisplayMemberPath="DepName"/>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Employees" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ListView Name="Employees" Grid.Row="0" Margin="5" ItemsSource="{Binding SelectedItem.Human, ElementName=Departments}" DisplayMemberPath="SName"/>
+                <GroupBox Grid.Row="1" Header="Employee info" DataContext="{Binding SelectedItem, ElementName=Employees}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Second Name: "/>
+                            <TextBox Text="{Binding SName}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="First Name: "/>
+                            <TextBox Text="{Binding Name}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Employee ID: "/>
+                            <TextBox Text="{Binding Id}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
     </Grid>
 
 </Window>

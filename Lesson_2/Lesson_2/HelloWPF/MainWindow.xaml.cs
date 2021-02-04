@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HelloWPF.ViewModel;
 
 namespace HelloWPF
 {
@@ -23,30 +24,6 @@ namespace HelloWPF
         public MainWindow()
         {
             InitializeComponent();
-            Employees.ItemsSource = App.Emp;
-        }
-        public static Employee __emp;
-        private void Employees_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var obj = (Employee)Employees.SelectedItem;
-            __emp = obj;
-        }
-
-        private void bCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void bOk_Click(object sender, RoutedEventArgs e)
-        {
-            EditWindow editWindow = new EditWindow();
-            editWindow.Show();
-        }
-
-        private void bAdd_Click(object sender, RoutedEventArgs e)
-        {
-            AddWindow addWindow = new AddWindow();
-            addWindow.Show();
         }
     }
 }
