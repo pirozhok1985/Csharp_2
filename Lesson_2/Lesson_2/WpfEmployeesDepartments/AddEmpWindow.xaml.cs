@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfEmployeesDepartments.Model;
+using WpfEmployeesDepartments.ViewModel;
+using System.Globalization;
 
 namespace WpfEmployeesDepartments
 {
@@ -24,8 +27,16 @@ namespace WpfEmployeesDepartments
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void bExit_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void bOk_Click(object sender, RoutedEventArgs e)
+        {
+            var data = (MainWindowViewModel)DataContext;
+            var dep = data.Deps.First(d => d.Name == this.Name);
+            dep.Emp.Add(new Employee(TName.Text,TSName.Text,Convert.ToInt32(TId.Text),Convert.ToDouble(TSalary.Text)));
             this.Close();
         }
     }

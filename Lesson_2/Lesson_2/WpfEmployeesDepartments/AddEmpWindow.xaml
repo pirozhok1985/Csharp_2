@@ -12,14 +12,26 @@
     </Window.DataContext>
     <Grid>
         <StackPanel Margin="3" Height="150" VerticalAlignment="Top">
-            <TextBox Margin="10"></TextBox>
-            <TextBox Margin="10"></TextBox>
-            <TextBox Margin="10"></TextBox>
-            <TextBox Margin="10"></TextBox>
+            <StackPanel Orientation="Horizontal">
+               <TextBlock Text="Имя: " VerticalAlignment="Center"/>
+                <TextBox Name="TName" Margin="10" Width="200"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Фамилия: " VerticalAlignment="Center"/>
+                <TextBox Name="TSName" Margin="10" Width="200"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="ИН: " VerticalAlignment="Center"/>
+                <TextBox Name="TId" Margin="10" Width="200"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Зарплата: " VerticalAlignment="Center"/>
+                <TextBox Name="TSalary" Margin="10" Width="200"></TextBox>
+            </StackPanel>
         </StackPanel>
         <StackPanel Margin="3,3,3,3" Orientation="Horizontal" VerticalAlignment="Bottom" Height="70">
-            <Button Margin="195,15,5,5" Content="OK" Width="60" VerticalAlignment="Top"></Button>
-            <Button Margin="5,15,5,5" Content="Отмена" Width="60" VerticalAlignment="Top" Click="Button_Click"></Button>
+            <Button Name="BOk" Margin="195,15,5,5" Content="OK" Width="60" VerticalAlignment="Top" Click="bOk_Click"></Button>
+            <Button Name="BExit" Margin="5,15,5,5" Content="Выход" Width="60" VerticalAlignment="Top" Click="bExit_Click"></Button>
         </StackPanel>
     </Grid>
 </Window>

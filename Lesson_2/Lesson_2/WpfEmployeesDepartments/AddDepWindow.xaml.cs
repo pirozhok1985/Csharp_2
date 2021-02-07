@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfEmployeesDepartments.Model;
+using WpfEmployeesDepartments.ViewModel;
 
 namespace WpfEmployeesDepartments
 {
@@ -22,6 +24,18 @@ namespace WpfEmployeesDepartments
         public AddDepWindow()
         {
             InitializeComponent();
+        }
+
+        private void BExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BOk_Click(object sender, RoutedEventArgs e)
+        {
+            var data = (MainWindowViewModel)DataContext;
+            data.Deps.Add(new Department(TDepName.Text));
+            this.Close();
         }
     }
 }

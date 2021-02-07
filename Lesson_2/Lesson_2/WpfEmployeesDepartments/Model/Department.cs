@@ -9,5 +9,15 @@ namespace WpfEmployeesDepartments.Model
     {
         public ObservableCollection<Employee> Emp { get; set; }
         public string Name { get; set; }
+
+        public Department()
+        {
+            
+        }
+
+        public Department(string name)
+        {
+            Name = name;
+        }
     }
 }
