@@ -27,12 +27,12 @@ namespace WpfEmployeesDepartments
             InitializeComponent();
         }
 
-        private void bOk_Click(object sender, RoutedEventArgs e)
+        private void bExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void bCancel_Click(object sender, RoutedEventArgs e)
+        private void bRemove_Click(object sender, RoutedEventArgs e)
         {
             var data = (MainWindowViewModel)DataContext;
             if(Departments.SelectedItem is Department dep)
@@ -53,20 +53,16 @@ namespace WpfEmployeesDepartments
             var data = (MainWindowViewModel)DataContext;
             if (Departments.SelectedItem is Department dep)
             {
-                var empWindow = new AddEmpWindow();
-                empWindow.Name = dep.Name;
-                empWindow.Show();
+                dep.Emp.Add(new Employee("имя","фамилия",0,0));
+                return;
             }
-            else
-            {
-                var depWindow = new AddDepWindow();
-                depWindow.Show();
-            }
+            data.Deps.Add(new Department("Новый отдел"));
+            return;
         }
 
-        private void bEdit_Click(object sender, RoutedEventArgs e)
+        private void Departments_KeyDown(object sender, KeyEventArgs e)
         {
-
+            Departments.SelectedItem = null;
         }
     }
 }
