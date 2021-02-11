@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<configuration>
+  <connectionString>Data Source=(localdb)\mssqllocaldb;Initial Catalog=EmployeesDepartments;Integrated Security=True</connectionString>
+</configuration>
