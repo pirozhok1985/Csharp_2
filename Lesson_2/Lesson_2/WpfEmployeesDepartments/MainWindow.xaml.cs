@@ -40,10 +40,12 @@ namespace WpfEmployeesDepartments
                 if (Employees.SelectedItem is Employee emp)
                 {
                     dep.Emp.Remove(emp);
+                    dbOperations.RemoveEmployee(emp);
                     return;
                 }
 
                 data.Deps.Remove(dep);
+                dbOperations.RemoveDepartment(dep);
             }
             return;
         }
@@ -53,10 +55,13 @@ namespace WpfEmployeesDepartments
             var data = (MainWindowViewModel)DataContext;
             if (Departments.SelectedItem is Department dep)
             {
-                dep.Emp.Add(new Employee("имя","фамилия",0,0));
+                Employee item = new Employee("имя", "фамилия", 0, 0);
+                dep.Emp.Add(item);
+                dbOperations.InsertEmployee(item,dep);
                 return;
             }
             data.Deps.Add(new Department("Новый отдел"));
+            dbOperations.InsertDepartment(new Department("Новый отдел")); //Кодировка
             return;
         }
 

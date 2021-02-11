@@ -67,34 +67,62 @@ namespace WpfEmployeesDepartments.Model
            return d;
        }
 
-       public static void InsertEmployee(Employee e)
+       public static void InsertEmployee(Employee e, Department d)
        {
-           throw new NotImplementedException();
-       }
+           ConnectionString = AppSettings["connectionString"];
+           Connection = new SqlConnection(ConnectionString);
+           Connection.Open();
+           string sqlQuery = $"Insert Into Employees (Name, Sname, Salary, DepId) Values ('{e.Name}', '{e.SName}', '{e.Salary}')"; // DepId не прислюнить, пока не пойму как реализовать
+           using (Command = new SqlCommand(sqlQuery, Connection))
+           {
+               Command.ExecuteNonQuery();
+           }
+        }
 
        public static void UpdateEmployee(Employee e)
        {
-           throw new NotImplementedException();
+           throw new NotImplementedException(); //Нужно разбираться, как подписаться на событие INotifyPropertyChanged
        }
 
        public static void RemoveEmployee(Employee e)
        {
-           throw new NotImplementedException();
-       }
+           ConnectionString = AppSettings["connectionString"];
+           Connection = new SqlConnection(ConnectionString);
+           Connection.Open();
+           string sqlQuery = $"Delete From Employees where Id={e.Id}";
+           using (Command = new SqlCommand(sqlQuery,Connection))
+           {
+               Command.ExecuteNonQuery();
+           }
+        }
 
        public static void InsertDepartment(Department e)
        {
-           throw new NotImplementedException();
-       }
+           ConnectionString = AppSettings["connectionString"];
+           Connection = new SqlConnection(ConnectionString);
+           Connection.Open();
+           string sqlQuery = $"Insert Into Departments (Name) Values ('{e.Name}')"; 
+           using (Command = new SqlCommand(sqlQuery, Connection))
+           {
+               Command.ExecuteNonQuery();
+           }
+        }
 
        public static void UpdateDepartment(Department e)
        {
-           throw new NotImplementedException();
-       }
+           throw new NotImplementedException(); //Нужно разбираться, как подписаться на событие INotifyPropertyChanged
+        }
 
        public static void RemoveDepartment(Department e)
        {
-           throw new NotImplementedException();
-       }
+           ConnectionString = AppSettings["connectionString"];
+           Connection = new SqlConnection(ConnectionString);
+           Connection.Open();
+           string sqlQuery = $"Delete From Departments where Name='{e.Name}'";
+           using (Command = new SqlCommand(sqlQuery, Connection))
+           {
+               Command.ExecuteNonQuery();
+           }
+        }
     }
 }
